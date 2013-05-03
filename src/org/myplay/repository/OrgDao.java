@@ -15,7 +15,7 @@ public interface OrgDao extends
 	@Query(" select o from Organization o where o.deleteFlag=0")
 	List<Organization> findAllOrg();
 
-	@Query(" select o.id,o.name from Organization o where o.type  ='1' and o.parentOrganizationId = (select id from  Organization where parentOrganizationId =null)")
+	@Query(" select new org.myplay.web.ComboVo(o.id,o.name) from Organization o where o.type  ='1' and o.parentOrganizationId = (select id from  Organization where parentOrganizationId =null and type  ='1' )")
 	/**
 	 * 第一层用车单位
 	 * @return

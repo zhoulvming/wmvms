@@ -177,7 +177,14 @@ public class OrgResource {
 			// list = orgService.findOrgByType();
 			// }
 			// if(level.equals("2")){
-			list = orgService.findOrgByType(parent);
+			if (null!=parent&&parent.equals("null")){
+				
+				list=orgService.findOrgByType();
+			}else{
+				
+				list = orgService.findOrgByType(parent);
+			}
+			
 			// }
 			// List res = new ArrayList();
 			// for (Object[] kv : list) {
