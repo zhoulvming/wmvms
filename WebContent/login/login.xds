@@ -1,0 +1,191 @@
+{
+    "name": "login.xds",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "directAPI": "",
+        "spacesToIndent": "4",
+        "codeGenFormat": "Class",
+        "exportPath": ".",
+        "extPath": "../ext-4.0/",
+        "lineEnding": "LF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true,
+        "appName": "Login"
+    },
+    "xdsVersion": "1.2.3",
+    "components": [
+        {
+            "id": "ExtBox1-ext-gen1666",
+            "type": "viewport",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "padding": null,
+                "style": "'background-image: url(background.jpg);  background-repeat:repeat-x; background-color:rgb(62,170,216);",
+                "layout": "fit",
+                "designer|userClassName": "MyViewport"
+            }
+        },
+        {
+            "id": "ExtBox1-ext-gen1728",
+            "type": "window",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 164,
+                "padding": null,
+                "width": 304,
+                "layout": "fit",
+                "closable": false,
+                "title": "Silicon Innovation自动报关系统",
+                "designer|userClassName": "MyWindow"
+            },
+            "cn": [
+                {
+                    "id": "ExtBox1-ext-gen1827",
+                    "type": "form",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "padding": null,
+                        "bodyPadding": 10,
+                        "title": null,
+                        "designer|userClassName": "MyForm"
+                    },
+                    "cn": [
+                        {
+                            "id": "ExtBox1-ext-gen2213",
+                            "type": "textfield",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "用户名",
+                                "designer|userClassName": "MyTextField",
+                                "layout|anchor": "100%"
+                            }
+                        },
+                        {
+                            "id": "ExtBox1-ext-gen2398",
+                            "type": "textfield",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "inputType": "password",
+                                "fieldLabel": "密码",
+                                "designer|userClassName": "MyTextField1",
+                                "layout|anchor": "100%"
+                            }
+                        },
+                        {
+                            "id": "ExtBox1-ext-gen2266",
+                            "type": "fieldcontainer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 44,
+                                "layout": "column",
+                                "fieldLabel": "密码卡",
+                                "designer|userClassName": "MyFieldContainer"
+                            },
+                            "cn": [
+                                {
+                                    "id": "ExtBox1-ext-gen3448",
+                                    "type": "textfield",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "width": 60,
+                                        "inputType": "password",
+                                        "fieldLabel": null,
+                                        "designer|userClassName": "MyTextField2"
+                                    }
+                                },
+                                {
+                                    "id": "ExtBox1-ext-gen5126",
+                                    "type": "container",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 20,
+                                        "width": 80,
+                                        "designer|userClassName": "MyPanel"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ExtBox1-ext-gen2584",
+                            "type": "toolbar",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|userClassName": "MyToolbar",
+                                "dock": "bottom"
+                            },
+                            "cn": [
+                                {
+                                    "id": "ExtBox1-ext-gen2978",
+                                    "type": "tbfill",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|userClassName": "MyFill",
+                                        "layout|flex": null
+                                    }
+                                },
+                                {
+                                    "id": "ExtBox1-ext-gen2775",
+                                    "type": "button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "btnLogin",
+                                        "text": "登陆",
+                                        "designer|userClassName": "MyButton",
+                                        "layout|flex": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": [],
+    "framework": "ext40"
+}
