@@ -1,0 +1,80 @@
+<connections>
+	<connection name="dataSource">
+		<property name="url">jdbc:mysql://localhost:3306/wanlitest?characterEncoding=UTF-8
+		</property>
+		<property name="driver">com.mysql.jdbc.Driver</property>
+		<property name="username">root</property>
+		<property name="password">root</property>
+		<property name="initialSize">0</property>
+		<property name="maxActive">100</property>
+		<property name="maxIdle">8</property>
+		<property name="minIdle">0</property>
+		<property name="maxWait">-1</property>
+	</connection>
+	
+	<connection name="maldives">
+		<property name="url">jdbc:mysql://localhost:3306/maldives?characterEncoding=UTF-8
+		</property>
+		<property name="driver">com.mysql.jdbc.Driver</property>
+		<property name="username">root</property>
+		<property name="password">root</property>
+		<property name="initialSize">0</property>
+		<property name="maxActive">100</property>
+		<property name="maxIdle">8</property>
+		<property name="minIdle">0</property>
+		<property name="maxWait">-1</property>
+	</connection>
+
+<!-- 
+	<connection name="maldives">
+		<property name="url">jdbc:h2:file:/Users/elgs/Documents/workspace/Maldives/WebRoot/WEB-INF/data/maldives;ifexists=true
+		</property>
+		<property name="driver">org.h2.Driver</property>
+		<property name="username">elgs</property>
+		<property name="password">scandisk</property>
+		<property name="initialSize">0</property>
+		<property name="maxActive">100</property>
+		<property name="maxIdle">8</property>
+		<property name="minIdle">0</property>
+		<property name="maxWait">-1</property>
+	</connection>
+ -->
+	<connection name="ksdorigin">
+		<property name="url">jdbc:jtds:sqlserver://192.168.0.200/ksdorigin
+		</property>
+		<property name="driver">net.sourceforge.jtds.jdbc.Driver</property>
+		<property name="username">datatest</property>
+		<property name="password">System</property>
+		<property name="initialSize">0</property>
+		<property name="maxActive">100</property>
+		<property name="maxIdle">8</property>
+		<property name="minIdle">0</property>
+		<property name="maxWait">-1</property>
+	</connection>
+
+	<connection name="ksddata">
+		<property name="url">jdbc:jtds:sqlserver://192.168.0.200/ksddata
+		</property>
+		<property name="driver">net.sourceforge.jtds.jdbc.Driver</property>
+		<property name="username">datatest</property>
+		<property name="password">System</property>
+		<property name="initialSize">0</property>
+		<property name="maxActive">100</property>
+		<property name="maxIdle">8</property>
+		<property name="minIdle">0</property>
+		<property name="maxWait">-1</property>
+	</connection>
+
+	<connection name="edidata1">
+		<property name="url">jdbc:jtds:sqlserver://192.168.0.200/edidata1
+		</property>
+		<property name="driver">net.sourceforge.jtds.jdbc.Driver</property>
+		<property name="username">datatest</property>
+		<property name="password">System</property>
+		<property name="initialSize">0</property>
+		<property name="maxActive">100</property>
+		<property name="maxIdle">8</property>
+		<property name="minIdle">0</property>
+		<property name="maxWait">-1</property>
+	</connection>
+</connections>
