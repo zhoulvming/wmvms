@@ -1,24 +1,71 @@
 package org.myplay.web;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 import org.myplay.entity.BaseEntityBean;
+import org.myplay.entity.JsonResult;
 import org.myplay.repository.IGenericDAO;
 import org.myplay.repository.JpaGenericDAO;
+import org.myplay.service.CommonService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @SuppressWarnings("rawtypes")
 @Path("/common")
 public class CommonResource extends AbstractBaseResource {
 	private static final String ENTITY_PACK_PREFIX = "org.myplay.entity.";
+	protected CommonService commonService;
+	@Context
+	ServletContext servletContex;
+	ObjectMapper mapper = new ObjectMapper();
+	public <T> T getBean(String name, Class<T> clazz, ServletContext servletContex) {
+
+		ApplicationContext ctx = WebApplicationContextUtils
+				.getWebApplicationContext(servletContex);
+		return ctx.getBean(name, clazz);
+	}
+	@GET
+	@Path("/getCombo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getComboOrg(@QueryParam("parent") String parent)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
+		try {
+			commonService = this.getBean("commonService",
+					CommonService.class, servletContex);
+			List<ComboVo> list = commonService.findComboData();
+
+			jsonResult.setRoot(list);
+			jsonResult.setSuccess(true);
+			jsonResult.setMessage("加载成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonResult.setSuccess(false);
+
+			jsonResult.setMessage("加载失败!");
+		}
+		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS,
+				false);// 封闭时候戳输出，此时是ISO格局
+		return mapper.writeValueAsString(jsonResult);
+	}
 
 	@GET
 	@Path("/getSearchField")

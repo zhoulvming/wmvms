@@ -85,7 +85,16 @@ Ext
 												anchor : '100%',
 												items : [ {
 													xtype : 'combobox',
-													fieldLabel : ''
+													fieldLabel : '',
+													itemId : 'carModel',
+													displayField : 'text',
+													valueField : 'id',
+													width : 100,
+													labelWidth : 130,
+													store : ExtjsCmp
+															.createStore('../services/common/getCombo'),
+													queryMode : 'remote',
+													typeAhead : true,
 												} ]
 											}, {
 												xtype : 'fieldcontainer',

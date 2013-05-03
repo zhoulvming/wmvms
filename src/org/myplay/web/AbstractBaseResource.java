@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Query;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -32,6 +33,8 @@ import org.myplay.entity.JsonResult;
 import org.myplay.entity.SimpleBaseEntityBean;
 import org.myplay.repository.IGenericDAO;
 import org.myplay.util.Tools;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public abstract class AbstractBaseResource<T> {
 
@@ -39,6 +42,9 @@ public abstract class AbstractBaseResource<T> {
 	private static final int CONSTANT_INVALID_FLAG = 1;
 	private JsonResult<T> jsonResult = null;
 
+	
+	
+	
 	public JsonResult<T> getJsonResult() {
 		return jsonResult;
 	}
