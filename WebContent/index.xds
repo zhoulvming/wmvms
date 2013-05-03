@@ -1,0 +1,219 @@
+{
+    "name": "index.xds",
+    "settings": {
+        "urlPrefix": "http://localhost:8080/wanli",
+        "directAPI": "",
+        "spacesToIndent": "4",
+        "codeGenFormat": "Class",
+        "exportPath": ".",
+        "extPath": "ext-4.0/",
+        "lineEnding": "LF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true,
+        "appName": "Wanli"
+    },
+    "xdsVersion": "1.2.0",
+    "components": [
+        {
+            "id": "ExtBox1-ext-gen2054",
+            "type": "viewport",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "baseViewport",
+                "layout": "border",
+                "designer|userClassName": "BaseViewport",
+                "designer|userAlias": "baseViewport"
+            },
+            "cn": [
+                {
+                    "id": "ExtBox1-ext-gen5153",
+                    "type": "treepanel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "tree",
+                        "width": 163,
+                        "collapsible": true,
+                        "title": "ACIPS报关业务系统",
+                        "store": "DeviceJsonTreeStore",
+                        "root": "{\n    text: 'Root',\n    id: 'src',\n    expanded: true\n}",
+                        "rootVisible": false,
+                        "designer|userClassName": "MyTreePanel",
+                        "layout|region": "west",
+                        "layout|split": true
+                    },
+                    "cn": [
+                        {
+                            "id": "ExtBox1-ext-gen5163",
+                            "type": "treeview",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "treeView",
+                                "designer|userClassName": "MyTreeView"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "ExtBox1-ext-gen2718",
+                    "type": "tabpanel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "mainPanel",
+                        "layout": "fit",
+                        "title": "",
+                        "designer|userClassName": "MyPanel",
+                        "layout|region": "center",
+                        "layout|split": true
+                    }
+                }
+            ]
+        },
+        {
+            "id": "ExtBox1-ext-gen5005",
+            "type": "panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 385,
+                "width": 675,
+                "layout": "fit",
+                "closable": null,
+                "headerPosition": "left",
+                "title": "",
+                "designer|userClassName": "ContentPanel",
+                "designer|userAlias": "contentPanel"
+            }
+        }
+    ],
+    "stores": [
+        {
+            "id": "ExtBox1-ext-gen2910",
+            "type": "treestore",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "storeId": "DeviceJsonTreeStore",
+                "designer|userClassName": "DeviceJsonTreeStore"
+            },
+            "cn": [
+                {
+                    "id": "ExtBox1-ext-gen2914",
+                    "type": "ajaxproxy",
+                    "reference": {
+                        "name": "proxy",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "url": "data/tree.json",
+                        "designer|userClassName": "Ajax Proxy"
+                    },
+                    "cn": [
+                        {
+                            "id": "ExtBox1-ext-gen2920",
+                            "type": "jsonreader",
+                            "reference": {
+                                "name": "reader",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "record": null,
+                                "designer|userClassName": "Json Reader"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "ExtBox1-ext-gen2863",
+                    "type": "datafield",
+                    "reference": {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "name": "id",
+                        "designer|userClassName": "MyField24"
+                    }
+                },
+                {
+                    "id": "ExtBox1-ext-gen2870",
+                    "type": "datafield",
+                    "reference": {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "name": "text",
+                        "designer|userClassName": "MyField25"
+                    }
+                },
+                {
+                    "id": "ExtBox1-ext-gen2877",
+                    "type": "datafield",
+                    "reference": {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "name": "leaf",
+                        "designer|userClassName": "MyField26"
+                    }
+                },
+                {
+                    "id": "ExtBox1-ext-gen2884",
+                    "type": "datafield",
+                    "reference": {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "name": "expanded",
+                        "designer|userClassName": "MyField27"
+                    }
+                },
+                {
+                    "id": "ExtBox1-ext-gen2891",
+                    "type": "datafield",
+                    "reference": {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "name": "children",
+                        "designer|userClassName": "MyField28"
+                    }
+                }
+            ]
+        }
+    ],
+    "framework": "ext40"
+}

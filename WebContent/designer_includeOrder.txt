@@ -1,0 +1,5 @@
+<script type="text/javascript" src="app/view/ui/BaseViewport.js"></script>
+<script type="text/javascript" src="app/view/BaseViewport.js"></script>
+<script type="text/javascript" src="app/view/ui/ContentPanel.js"></script>
+<script type="text/javascript" src="app/view/ContentPanel.js"></script>
+<script type="text/javascript" src="app/store/DeviceJsonTreeStore.js"></script>

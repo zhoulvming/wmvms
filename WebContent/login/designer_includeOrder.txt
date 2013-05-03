@@ -1,0 +1,4 @@
+<script type="text/javascript" src="app/view/ui/MyViewport.js"></script>
+<script type="text/javascript" src="app/view/MyViewport.js"></script>
+<script type="text/javascript" src="app/view/ui/MyWindow.js"></script>
+<script type="text/javascript" src="app/view/MyWindow.js"></script>
