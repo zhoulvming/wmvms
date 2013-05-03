@@ -1,0 +1,85 @@
+[{
+    id : '1',
+    text: '车辆管理',
+    expanded: true,
+    children: [{
+        id:	'1_1',
+        text: '车辆申请',
+        leaf: true,
+        url: 'apply/index.html'
+    },{
+        id:	'1_2',
+        text: '车辆调度',
+        leaf: true,
+        url: 'ext_vms/dispatchList.html'
+    },{
+        id: '1_4',
+        text: '派传单查询',
+        leaf: true,
+        url: 'ext_vms/dispatchSearch.html'
+    }]
+},{
+	id	: '2',
+    text: '车辆报表',
+    expanded: true,
+    children: [{
+    	id:	'2_1',
+        text: '用车报表',
+        leaf: true,
+        url: 'ext_vms/dispatchReport.html'
+    }]
+},{
+    id	: '7',
+    text: '系统管理',
+    expanded: true,
+    children: [
+     {
+        	id:	'7_0',
+            text: '用车单位',
+            leaf: true,
+            url: 'sys_mgmt/orgIndex.html'
+        },
+         {
+        	id:	'7_00',
+            text: '分车单位',
+            leaf: true,
+            url: 'sys_mgmt/org2Index.html'
+        },
+          {
+        	id:	'7_01',
+            text: '调用关系管理',
+            leaf: true,
+            url: 'sys_mgmt/bindOrgIndex.html'
+        },
+        {
+        	id:	'7_1',
+            text: '用户管理',
+            leaf: true,
+            url: 'sys_mgmt/userIndex.html'
+        },
+          {
+        	id:	'7_2',
+            text: '角色管理',
+            leaf: true,
+            url: 'sys_mgmt/roleIndex.html'
+        },
+          {
+            id: '7_3',
+            text: '驾驶员管理',
+            leaf: true,
+            url: 'sys_mgmt/roleIndex.html'
+        },
+          {
+            id: '7_4',
+            text: '车型管理',
+            leaf: true,
+            url: 'sys_mgmt/carModelIndex.html'
+        },
+          {
+            id: '7_5',
+            text: '驾驶员管理',
+            leaf: true,
+            url: 'sys_mgmt/roleIndex.html'
+        }
+    ]
+}]
