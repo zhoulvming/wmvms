@@ -19,6 +19,8 @@ public class TaskType extends BaseEntityBean implements Serializable {
 
 
 	private String reason;
+	
+	private String parentID;
 
 
 	public TaskType() {
@@ -32,5 +34,14 @@ public class TaskType extends BaseEntityBean implements Serializable {
 		this.reason = reason;
 	}
 
+	public String getParentID() {
+		return parentID;
+	}
+
+	public void setParentID(String parentID) {
+		this.parentID = parentID;
+	}
+
+	
 
 }

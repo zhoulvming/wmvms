@@ -181,7 +181,7 @@ public class Apply extends BaseEntityBean implements Serializable {
 	private String startAddre;
 
 
-	private int taskID;
+	private String taskTypeID;
 
 	private int usualAddrID;
 
@@ -508,12 +508,12 @@ public class Apply extends BaseEntityBean implements Serializable {
 		this.status = status;
 	}
 
-	public int getTaskID() {
-		return this.taskID;
+	public String getTaskTypeID() {
+		return this.taskTypeID;
 	}
 
-	public void setTaskID(int taskID) {
-		this.taskID = taskID;
+	public void setTaskTypeID(String taskTypeID) {
+		this.taskTypeID = taskTypeID;
 	}
 
 	public int getUsualAddrID() {

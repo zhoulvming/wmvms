@@ -13,17 +13,18 @@ Ext.define('vms.controller.DispatchCtrl', {
     selectedApplyID : null,
     selectedCarID : null,
     selectedDriverID : null,
+    me : null,
     	
     init: function() {
-    	var me = this;
+    	me = this;
         this.control({
             'viewport > dispatchlistview': {
 				beforerender: function(gp){
-					this.searchApplyList(gp);
+					me.searchApplyList(gp, me);
 				},
                 afterrender: function(gp){
                 	gp.down('button[itemId=btnSearch]').on('click',function(){
-                		this.searchApplyList(gp);
+                		me.searchApplyList(gp, me);
                 	},this);                   	
                 	gp.down('button[itemId=btnDispatch]').on('click',function(){
                 		if(me.selectedApplyID == null) {
@@ -37,10 +38,10 @@ Ext.define('vms.controller.DispatchCtrl', {
             'dispatchaddwinview': {
             	afterrender: function(win){
             		//取数据
-            		this.searchApplyInfoWithID(win); //申请单信息
-            		this.searchDispatchPlace(win); //派车点
-                	this.searchCarsByGroupID(win); //Car List
-                	this.searchDriver(win); // Driver List
+            		me.searchApplyInfoWithID(win, me); //申请单信息
+            		me.searchDispatchPlace(win, me); //派车点
+                	me.searchCarsByGroupID(win, me); //Car List
+                	me.searchDriver(win, me); // Driver List
                 	
                 	//返回按钮事件
 	            	win.down('button[itemId=btnBack]').on('click',function(){
@@ -49,23 +50,22 @@ Ext.define('vms.controller.DispatchCtrl', {
 	            	
 	            	//派车按钮
                     win.down('button[itemId=btnSent]').on('click',function(){
-                        this.saveSent(win);
+                        me.saveSent(win, me);
                     },this);
                     
                 }
             },
             'viewport > dispatchsearchview': {
             	beforerender: function(gp) {
-                    this.searchApplyList(gp);
+                    me.searchApplyList(gp, me);
                 },
                 afterrender : function(gp) {
-                	var departmentPanel = gp.down('panel[itemId=departmentPanel]');
-                	this.addDepartment(departmentPanel);
+                	me.addDepartment(gp.down('panel[itemId=departmentPanel]'), me);
                 }
             },
             'viewport > dispatchreportview': {
             	beforerender: function(gp){
-                    this.searchDispatchReport(gp);
+                    me.searchDispatchReport(gp, me);
                 },
                 afterrender: function(gp){
                     gp.down('button[itemId=btnExport]').on('click',function(){
@@ -76,19 +76,20 @@ Ext.define('vms.controller.DispatchCtrl', {
         });
     },
     
-    addDepartment : function(container_) {
+    addDepartment : function(container_, me_) {
     	var cb = ExtjsCmp.createCombo('../services/org/getComboOrg?parent=1');
     	container_.add(cb);
     },
     
-    saveSent : function(win) {
+    saveSent : function(win, me_) {
    	
-    	var me = this;
     	var params = 
     	       '{' +
-    	           '"applyID":"' + me.selectedApplyID + '",' +
+    	           '"applyID":"' + me_.selectedApplyID + '",' +
     	           '"starttime":"' + win.down('textfield[itemId=txtStarttime]').getValue() + '",' +
     	           '"endtime":"' + win.down('textfield[itemId=txtEndtime]').getValue() + '",' +
+    	           '"carID":"' + me_.selectedCarID + '",' +
+    	           '"driverID":"' + me_.selectedDriverID + '",' +
     	           '"status":"0"' +
     			'}';
 
@@ -112,7 +113,7 @@ Ext.define('vms.controller.DispatchCtrl', {
     },
     
     //取得派车点
-    searchDispatchPlace　: function(win) {
+    searchDispatchPlace　: function(win, me_) {
 
         var searchUrl= '../services/simplecommon/load?model=Organization';
         var conStr = '{"type":"2"}';
@@ -147,12 +148,14 @@ Ext.define('vms.controller.DispatchCtrl', {
                 Ext.each(data, function(record){
                 	var inputValue = 1;
                 	var boxLabel = "";
-            	    var radio = new Ext.form.Radio({
-                        name : "dispatchPlace",
-                        inputValue : "1",
-                        boxLabel : "驾驶班1"
-                    });
-                    radioGroup.add(radio);
+                	if(record.parentOrganizationId != null) {
+                	    var radio = new Ext.form.Radio({
+                            name : "dispatchPlace",
+                            inputValue : record.id,
+                            boxLabel : record.name
+                        });
+                        radioGroup.add(radio);
+                	}
                 });
             },
                 
@@ -165,11 +168,10 @@ Ext.define('vms.controller.DispatchCtrl', {
     },
     
     //取得申请单信息
-    searchApplyInfoWithID : function(win) {
-    	//alert(selectedApplyID);
-    	var me = this;
+    searchApplyInfoWithID : function(win, me_) {
+
     	var searchUrl= '../services/simplecommon/load?model=Apply';
-    	var conStr = '{"id":"' +  me.selectedApplyID + '"}';
+    	var conStr = '{"id":"' +  me_.selectedApplyID + '"}';
     	searchUrl += "&conStr=" + conStr;
     	
     	Ext.Ajax.request({
@@ -211,21 +213,18 @@ Ext.define('vms.controller.DispatchCtrl', {
     	});
     },
 
-    searchApplyList : function(gp) {
+    searchApplyList : function(gp, me_) {
     	
         var selectedIndex= [];
         var selectedGridId=[];
         var gridStore= null;
-        //var searchGrid= null;
         var searchUrl= '../services/simplecommon/load?model=Apply';
         var resultTitle= '';
         var infoWin =null;
         
-       // var conStr1 = '{"assignedCarID":"' +  gp.down("textfield[itemId=assignedCarID]").value + '"}';
         var conStr1 = '{}';
         searchUrl = searchUrl + "&conStr=" + conStr1;
 		
-		var me = this;
 		Ext.Ajax.request({
 			url : encodeURI(searchUrl),
 			timeout : 600000,
@@ -335,7 +334,7 @@ Ext.define('vms.controller.DispatchCtrl', {
 									if (!Ext.Array.contains(selectedGridId, id)) {
 										selectedGridId.push(id);
 										selectedIndex.push(record);
-										me.selectedApplyID = id;
+										me_.selectedApplyID = id;
 									}
 								},
 								deselect : deSelect
@@ -383,7 +382,7 @@ Ext.define('vms.controller.DispatchCtrl', {
     /**
      * 根据班组搜索车辆信息
      */
-    searchCarsByGroupID : function(win) {
+    searchCarsByGroupID : function(win, me_) {
     	
     	var groupID = '1';
         var selectedIndex= [];
@@ -394,7 +393,6 @@ Ext.define('vms.controller.DispatchCtrl', {
         var resultTitle= '';
         var infoWin =null;
         
-		var me = this;
 		Ext.Ajax.request({
 			url : searchUrl,
 			timeout : 600000,
@@ -452,8 +450,8 @@ Ext.define('vms.controller.DispatchCtrl', {
 					autoScroll:true,
 					listeners:{
 						'itemclick':function(me,record){
-							var form = win.down("form").getForm();
-							win.down("form").getComponent("tttt").getComponent("selectedCar").setValue(record.get('carNum'));
+							win.down('textfield[itemId=selectedCar]').setValue(record.get('carNum'));
+							me_.selectedCarID = record.get('id');
 						}
 					}
 				});
@@ -476,17 +474,10 @@ Ext.define('vms.controller.DispatchCtrl', {
     },
 
     /**
-     * 检索驾驶班信息
-     */
-    searchCarGroup :　function() {
-    	
-    },
-
-    /**
      * 派车报表查询
      * @param {} gp
      */
-    searchDispatchReport : function(gp) {
+    searchDispatchReport : function(gp, me_) {
         
         var selectedIndex= [];
         var selectedGridId=[];
@@ -499,7 +490,6 @@ Ext.define('vms.controller.DispatchCtrl', {
         var conStr1 = '{}';
         searchUrl = searchUrl + "&conStr=" + conStr1;
         
-        var me = this;
         Ext.Ajax.request({
             url : encodeURI(searchUrl),
             timeout : 600000,
@@ -575,7 +565,7 @@ Ext.define('vms.controller.DispatchCtrl', {
                                     if (!Ext.Array.contains(selectedGridId, id)) {
                                         selectedGridId.push(id);
                                         selectedIndex.push(record);
-                                        selectedApplyID = id;
+                                        me_.selectedApplyID = id;
                                     }
                                 },
                                 deselect : deSelect
@@ -623,7 +613,7 @@ Ext.define('vms.controller.DispatchCtrl', {
     /**
      * 检索驾驶员信息
      */
-    searchDriver :　function(win) {
+    searchDriver :　function(win, me_) {
     	var groupID = '1';
         var selectedIndex= [];
         var selectedGridId=[];
@@ -633,7 +623,6 @@ Ext.define('vms.controller.DispatchCtrl', {
         var resultTitle= '';
         var infoWin =null;
         
-		var me = this;
 		Ext.Ajax.request({
 			url : searchUrl,
 			timeout : 600000,
@@ -690,14 +679,14 @@ Ext.define('vms.controller.DispatchCtrl', {
 					frame:false,
 					listeners:{
 						'itemclick':function(me,record){
-							var form = win.down("form").getForm();
-							win.down("form").getComponent("tttt").getComponent("selectedDriver").setValue(record.get('name'));
+							win.down('textfield[itemId=selectedDriver]').setValue(record.get('name'));
+							me_.selectedDriverID = record.get('id');
 						}
 					}
 				});
 
             	if(searchGrid != null) {
-            		win.getComponent('dispatchPanel').getComponent('dispatchPanelSelect').getComponent('driverList').add(searchGrid);
+            		win.down('panel[itemId=driverList]').add(searchGrid);
 				} else {
             		alert('searchResult is null');
             	}
