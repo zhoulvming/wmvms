@@ -34,12 +34,12 @@ var VMSComm = {
     	
     },
     
-    afterRenderTable : function(data) {
-    	alert(data.root);
+    searchSuccessCallback : function(obj) {
+    	alert("js");
+    	return obj;
     },
     
-    
-    searchDispatchPlace : function(searchUrl_, conStr_) {
+    search : function(searchUrl_, conStr_) {
 
     	var me = this;
         var searchUrl= searchUrl_ + "&conStr=" + conStr_;
@@ -51,12 +51,9 @@ var VMSComm = {
             scope : this,
             success : function(response, opts) {
                 var obj = Ext.decode(response.responseText);
-                var data = obj.root;
-                if (me.afterRenderTable != null) {
-                    var o = new Object();
-                    me.afterRenderTable.call(o, obj);
+                if (me.searchSuccessCallback != null) {
+                    me.searchSuccessCallback.call(new Object(), obj);
                 }
-
             },
                 
             failure : function(responseObject) {
