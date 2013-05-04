@@ -51,7 +51,7 @@ public class Assign extends BaseEntityBean implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endCarTime;
 
-	private Date endtime;
+	private String endtime; 
 
 	private float endUserDistance;
 
@@ -89,7 +89,7 @@ public class Assign extends BaseEntityBean implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startCarTime;
 
-	private Date starttime;
+	private String starttime;
 
 	private float startUserDistance;
 
@@ -242,11 +242,11 @@ public class Assign extends BaseEntityBean implements Serializable {
 		this.endCarTime = endCarTime;
 	}
 
-	public Date getEndtime() {
+	public String getEndtime() {
 		return this.endtime;
 	}
 
-	public void setEndtime(Date endtime) {
+	public void setEndtime(String endtime) {
 		this.endtime = endtime;
 	}
 
@@ -386,11 +386,11 @@ public class Assign extends BaseEntityBean implements Serializable {
 		this.startCarTime = startCarTime;
 	}
 
-	public Date getStarttime() {
+	public String getStarttime() {
 		return this.starttime;
 	}
 
-	public void setStarttime(Date starttime) {
+	public void setStarttime(String starttime) {
 		this.starttime = starttime;
 	}
 
