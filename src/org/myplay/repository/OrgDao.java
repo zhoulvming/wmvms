@@ -6,6 +6,7 @@ import org.myplay.entity.Organization;
 import org.myplay.web.ComboVo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface OrgDao extends
 		PagingAndSortingRepository<Organization, String> {
@@ -20,7 +21,7 @@ public interface OrgDao extends
 	 * 第一层用车单位
 	 * @return
 	 */
-	List<Object[]> findRootOrgByType(String type);
+	List<Object[]> findRootOrgByType(@Param("type")String type);
 
 	/**
 	 * 用车单位的子机构
