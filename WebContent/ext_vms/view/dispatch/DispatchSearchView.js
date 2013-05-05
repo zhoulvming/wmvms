@@ -70,7 +70,34 @@ Ext.define('vms.view.dispatch.DispatchSearchView' ,{
 				height:35,
 				width:400,
 				baseCls:"x-plain",
-				items:[]
+				items:[
+                    {
+                        xtype : 'combobox',
+                        fieldLabel : '用车单位',
+                        itemId : 'org',
+                        displayField : 'text',
+                        valueField : 'id',
+                        width : 180,
+                        labelWidth : 65,
+                        store : ExtjsCmp
+                                .createStore('../services/org/getComboOrg?parent=null&type=1'),
+                        queryMode : 'remote',
+                        typeAhead : true
+                    },
+                    {
+                        xtype : 'combobox',
+                        fieldLabel : '',
+                        itemId : 'org2',
+                        displayField : 'text',
+                        valueField : 'id',
+                        width : 100,
+                        labelWidth : 130,
+                        store : ExtjsCmp
+                                .createStore('../services/org/getComboOrg'),
+                        queryMode : 'remote',
+                        typeAhead : true,
+                    }		
+				]
 			},{
 				xtype:"panel",
 				frame:false,
@@ -79,16 +106,36 @@ Ext.define('vms.view.dispatch.DispatchSearchView' ,{
 				width: 400,
 				height:35,
 				baseCls:"x-plain",
-				items:[{
-					xtype:"combo",
-					itemId:"departmentId_dispatch_1",
-					labelWidth:55,
-					fieldLabel:"分车单位"
-				},{
-					xtype:"combo",
-					itemId:"departmentId_dispatch_2",
-					fieldLabel:""
-				}]
+				items:[
+
+				    {
+                        xtype : 'combobox',
+                        fieldLabel : '分车单位',
+                        itemId : 'org',
+                        displayField : 'text',
+                        valueField : 'id',
+                        width : 180,
+                        labelWidth : 65,
+                        store : ExtjsCmp
+                                .createStore('../services/org/getComboOrg?parent=null&type=2'),
+                        queryMode : 'remote',
+                        typeAhead : true
+                    },
+                    {
+                        xtype : 'combobox',
+                        fieldLabel : '',
+                        itemId : 'org2',
+                        displayField : 'text',
+                        valueField : 'id',
+                        width : 100,
+                        labelWidth : 130,
+                        store : ExtjsCmp
+                                .createStore('../services/org/getComboOrg'),
+                        queryMode : 'remote',
+                        typeAhead : true,
+                    }   
+				
+				]
 			}]
 		}]
 	},{

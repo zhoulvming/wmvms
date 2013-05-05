@@ -42,16 +42,114 @@ public class CommonResource extends AbstractBaseResource {
 		return ctx.getBean(name, clazz);
 	}
 	@GET
-	@Path("/getCombo")
+	@Path("/findTaskTypeCombo")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getComboOrg(@QueryParam("parent") String parent)
+	public String findTaskTypeCombo()
 			throws JsonGenerationException, JsonMappingException, IOException {
 
 		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
 		try {
 			commonService = this.getBean("commonService",
 					CommonService.class, servletContex);
-			List<ComboVo> list = commonService.findComboData();
+			List<ComboVo> list = commonService.findTaskTypeCombo();
+			jsonResult.setRoot(list);
+			jsonResult.setSuccess(true);
+			jsonResult.setMessage("加载成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonResult.setSuccess(false);
+
+			jsonResult.setMessage("加载失败!");
+		}
+		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS,
+				false);// 封闭时候戳输出，此时是ISO格局
+		return mapper.writeValueAsString(jsonResult);
+	}
+	@GET
+	@Path("/findAddressCombo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String findAddressCombo()
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
+		try {
+			commonService = this.getBean("commonService",
+					CommonService.class, servletContex);
+			List<ComboVo> list = commonService.findAddressCombo();
+			jsonResult.setRoot(list);
+			jsonResult.setSuccess(true);
+			jsonResult.setMessage("加载成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonResult.setSuccess(false);
+
+			jsonResult.setMessage("加载失败!");
+		}
+		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS,
+				false);// 封闭时候戳输出，此时是ISO格局
+		return mapper.writeValueAsString(jsonResult);
+	}
+	@GET
+	@Path("/findCarCombo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String findCarCombo(@QueryParam("parent") String parent)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
+		try {
+			commonService = this.getBean("commonService",
+					CommonService.class, servletContex);
+			List<ComboVo> list = commonService.findCarCombo();
+
+			jsonResult.setRoot(list);
+			jsonResult.setSuccess(true);
+			jsonResult.setMessage("加载成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonResult.setSuccess(false);
+
+			jsonResult.setMessage("加载失败!");
+		}
+		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS,
+				false);// 封闭时候戳输出，此时是ISO格局
+		return mapper.writeValueAsString(jsonResult);
+	}
+	@GET
+	@Path("/findDriverCombo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String findDriverCombo(@QueryParam("parent") String parent)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
+		try {
+			commonService = this.getBean("commonService",
+					CommonService.class, servletContex);
+			List<ComboVo> list = commonService.findDriverCombo();
+
+			jsonResult.setRoot(list);
+			jsonResult.setSuccess(true);
+			jsonResult.setMessage("加载成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonResult.setSuccess(false);
+
+			jsonResult.setMessage("加载失败!");
+		}
+		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS,
+				false);// 封闭时候戳输出，此时是ISO格局
+		return mapper.writeValueAsString(jsonResult);
+	}
+	@GET
+	@Path("/findCarModelCombo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String findCarModelCombo(@QueryParam("parent") String parent)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
+		try {
+			commonService = this.getBean("commonService",
+					CommonService.class, servletContex);
+			List<ComboVo> list = commonService.findCarModelCombo();
 
 			jsonResult.setRoot(list);
 			jsonResult.setSuccess(true);

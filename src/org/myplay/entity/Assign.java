@@ -20,15 +20,14 @@ public class Assign extends BaseEntityBean implements Serializable {
 
 	private int abnormalType;
 
-	private String applyID;
-
+	//private String applyID;
+	//private String assignPlaceID;
+	//private String carID;
+	//private String driverID;
+	
 	private int assignDealType;
 
 	private int assignerID;
-
-	private String assignPlaceID;
-
-	private String carID;
 
 	private String checkContents;
 
@@ -37,8 +36,6 @@ public class Assign extends BaseEntityBean implements Serializable {
 	private String combinedID;
 
 	private int currentState;
-
-	private String driverID;
 
 	private int driverIDEx;
 
@@ -102,6 +99,149 @@ public class Assign extends BaseEntityBean implements Serializable {
 
 	private int userStatus;
 
+	
+//------------------------------------ @Join  &&  @Transient -----------------------------------------------------------------
+	
+	//申请表关联
+	//@Transient
+    @OneToOne(optional=false,cascade={CascadeType.ALL})  
+    @JoinColumn(name="ApplyID")
+    private Apply apply_;
+	public Apply getApply_() {
+		return apply_;
+	}
+	public void setApply_(Apply apply_) {
+		this.apply_ = apply_;
+	}
+
+	//驾驶员关联
+	//@Transient
+    @OneToOne(optional=false,cascade={CascadeType.ALL})  
+    @JoinColumn(name="DriverID")
+    private DriverInfo driverInfo;
+	public DriverInfo getDriverInfo() {
+		return driverInfo;
+	}
+	public void setDriverInfo(DriverInfo driverInfo) {
+		this.driverInfo = driverInfo;
+	}
+	
+	//派车单位表关联
+	//@Transient
+    @OneToOne(optional=false,cascade={CascadeType.ALL})  
+    @JoinColumn(name="AssignPlaceID")
+    private Organization org;
+	public Organization getOrg() {
+		return org;
+	}
+	public void setOrg(Organization org) {
+		this.org = org;
+	}
+
+	//车辆表关联
+	//@Transient
+    @OneToOne(optional=false,cascade={CascadeType.ALL})  
+    @JoinColumn(name="CarID")
+    private CarInfo carInfo;
+	public CarInfo getCarInfo() {
+		return carInfo;
+	}
+	public void setCarInfo(CarInfo carInfo) {
+		this.carInfo = carInfo;
+	}
+	
+	//派车单号
+	@Transient
+	@GridColumn(text = "派车单号", seq = 1, hidden = false,searchable=true)
+	private String serialID_;
+	public String getSerialID_() {
+		return this.serialID;
+	}
+	public void setSerialID_(String serialID_) {
+		this.serialID_ = serialID_;
+	}
+
+	//申请单位
+	@Transient
+	@GridColumn(text = "申请单位", seq = 1, hidden = false,searchable=true)
+	private String departmentName;
+	public String getDepartmentName() {
+		return apply_.getDepartmentName();
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+	
+	//用车人
+	@Transient
+	@GridColumn(text = "用车人", seq = 1, hidden = false,searchable=true)
+	private String contactPerson;
+	public String getContactPerson() {
+		return apply_.getContactPerson();
+	}
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
+	}
+	
+	//用车事由
+	@Transient
+	@GridColumn(text = "用车事由", seq = 1, hidden = false,searchable=true)
+	private String taskTypeVal;
+	public String getTaskTypeVal() {
+		return apply_.getTaskTypeVal();
+	}
+	public void setTaskTypeVal(String taskTypeVal) {
+		this.taskTypeVal = taskTypeVal;
+	}
+
+	//驾驶员
+	@Transient
+	@GridColumn(text = "驾驶员", seq = 1, hidden = false,searchable=true)
+	private String driverName;
+	public String getDriverName() {
+		return driverInfo.getName();
+	}
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
+	}
+	
+	//上车时间
+	@Transient
+	@GridColumn(text = "上车时间", seq = 1, hidden = false,searchable=true)
+	private String starttime_;
+	public String getStarttime_() {
+		return this.starttime;
+	}
+	public void setStarttime_(String starttime_) {
+		this.starttime_ = starttime_;
+	}
+	
+	//驾驶班组
+	@Transient
+	@GridColumn(text = "驾驶班组", seq = 1, hidden = false,searchable=true)
+	private String assignPlace;
+	public String getAssignPlace() {
+		return org.getName();
+	}
+	public void setAssignPlace(String assignPlace) {
+		this.assignPlace = assignPlace;
+	}
+	
+	//车牌号
+	@Transient
+	@GridColumn(text = "车牌号", seq = 1, hidden = false,searchable=true)
+	private String carNum;
+	public String getCarNum() {
+		return carInfo.getCarNum();
+	}
+	public void setCarNum(String carNum) {
+		this.carNum = carNum;
+	}
+	
+	
+//---------------------------------------------------------------------------------------------------------	
+
+
 	public Assign() {
 	}
 
@@ -121,14 +261,6 @@ public class Assign extends BaseEntityBean implements Serializable {
 		this.abnormalType = abnormalType;
 	}
 
-	public String getApplyID() {
-		return this.applyID;
-	}
-
-	public void setApplyID(String applyID) {
-		this.applyID = applyID;
-	}
-
 	public int getAssignDealType() {
 		return this.assignDealType;
 	}
@@ -145,22 +277,35 @@ public class Assign extends BaseEntityBean implements Serializable {
 		this.assignerID = assignerID;
 	}
 
-	public String getAssignPlaceID() {
-		return this.assignPlaceID;
-	}
+	
+	
+//	public String getAssignPlaceID() {
+//		return this.assignPlaceID;
+//	}
+//	public void setAssignPlaceID(String assignPlaceID) {
+//		this.assignPlaceID = assignPlaceID;
+//	}
+//	public String getCarID() {
+//		return this.carID;
+//	}
+//	public void setCarID(String carID) {
+//		this.carID = carID;
+//	}
+//	public String getApplyID() {
+//		return this.applyID;
+//	}
+//	public void setApplyID(String applyID) {
+//		this.applyID = applyID;
+//	}
+//	public String getDriverID() {
+//		return this.driverID;
+//	}
+//	public void setDriverID(String driverID) {
+//		this.driverID = driverID;
+//	}
 
-	public void setAssignPlaceID(String assignPlaceID) {
-		this.assignPlaceID = assignPlaceID;
-	}
-
-	public String getCarID() {
-		return this.carID;
-	}
-
-	public void setCarID(String carID) {
-		this.carID = carID;
-	}
-
+	
+	
 	public String getCheckContents() {
 		return this.checkContents;
 	}
@@ -192,14 +337,6 @@ public class Assign extends BaseEntityBean implements Serializable {
 
 	public void setCurrentState(int currentState) {
 		this.currentState = currentState;
-	}
-
-	public String getDriverID() {
-		return this.driverID;
-	}
-
-	public void setDriverID(String driverID) {
-		this.driverID = driverID;
 	}
 
 	public int getDriverIDEx() {

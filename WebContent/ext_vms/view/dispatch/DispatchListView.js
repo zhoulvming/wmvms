@@ -18,16 +18,47 @@ Ext.define('vms.view.dispatch.DispatchListView' ,{
 		layout:"hbox",
 		baseCls:"x-plain",
 		width:"100%",
-		items:[{
-            xtype:"combo",
-            itemId:"departmentId_apply_1",
-            labelWidth:60,
-            fieldLabel:"用车单位"
-        },{
-            xtype:"combo",
-            itemId:"departmentId_apply_2",
-            fieldLabel:""
-        }]
+		items:[
+		{
+            xtype : 'combobox',
+            fieldLabel : '用车单位',
+            itemId : 'org',
+            displayField : 'text',
+            valueField : 'id',
+            width : 180,
+            labelWidth : 65,
+            store : ExtjsCmp
+                    .createStore('../services/org/getComboOrg?parent=null&type=1'),
+            queryMode : 'remote',
+            typeAhead : true
+        },
+        {
+            xtype : 'combobox',
+            fieldLabel : '',
+            itemId : 'org2',
+            displayField : 'text',
+            valueField : 'id',
+            width : 100,
+            labelWidth : 130,
+            store : ExtjsCmp
+                    .createStore('../services/org/getComboOrg'),
+            queryMode : 'remote',
+            typeAhead : true,
+        } 
+        
+//		  {
+//            xtype:"combo",
+//            itemId:"departmentId_apply_1",
+//            labelWidth:60,
+//            fieldLabel:"用车单位"
+//        },{
+//            xtype:"combo",
+//            itemId:"departmentId_apply_2",
+//            fieldLabel:""
+//        }
+//        
+        
+        ]
 	},{
 		xtype:"toolbar",
 		itemId:"toolbar",

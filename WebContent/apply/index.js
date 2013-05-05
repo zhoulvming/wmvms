@@ -20,6 +20,27 @@ Ext
 			],
 
 			addFormField : function(_form) {
+
+				Ext.define('YesOrNo', {
+					extend : 'Ext.data.Model',
+					fields : [ {
+						name : 'text',
+						type : 'string'
+					}, {
+						name : 'id',
+						type : 'int'
+					}, ]
+				});
+				var yesOrNoStore = Ext.create('Ext.data.Store', {
+					model : 'YesOrNo',
+					data : [ {
+						text : '是',
+						id : '0'
+					}, {
+						text : '否',
+						id : '1'
+					}, ]
+				});
 				_form.bodyPadding = 5;
 				_form.padding = "0px 0px 0px 0px";
 				_form
@@ -42,17 +63,20 @@ Ext
 															itemId : 'org',
 															displayField : 'text',
 															valueField : 'id',
+															isFormField:false, 
 															width : 100,
 															labelWidth : 130,
 															store : ExtjsCmp
-																	.createStore('../services/org/getComboOrg?parent=null'),
+																	.createStore('../services/org/getComboOrg?parent=null&type=1'),
 															queryMode : 'remote',
 															typeAhead : true,
 
-														}, {
+														},
+														{
 															xtype : 'combobox',
 															fieldLabel : '',
 															itemId : 'org2',
+															name:'departMentID',
 															displayField : 'text',
 															valueField : 'id',
 															width : 100,
@@ -61,8 +85,11 @@ Ext
 																	.createStore('../services/org/getComboOrg'),
 															queryMode : 'remote',
 															typeAhead : true,
+															allowBlank : false,
+															emptyText : '请输入机构名称'
 														} ]
-											}, {
+											},
+											{
 												xtype : 'fieldcontainer',
 												height : 24,
 												layout : {
@@ -72,9 +99,22 @@ Ext
 												anchor : '100%',
 												items : [ {
 													xtype : 'combobox',
-													fieldLabel : ''
+													fieldLabel : '',
+													itemId : 'taskTypeID',
+													itemId : 'taskTypeID',
+													displayField : 'text',
+													valueField : 'id',
+													width : 100,
+													labelWidth : 130,
+													store : ExtjsCmp
+															.createStore('../services/common/findTaskTypeCombo'),
+													queryMode : 'remote',
+													typeAhead : true,
+													allowBlank : false,
+													emptyText : '请输入用车事由'
 												} ]
-											}, {
+											},
+											{
 												xtype : 'fieldcontainer',
 												frame : true,
 												height : 24,
@@ -86,112 +126,196 @@ Ext
 												items : [ {
 													xtype : 'combobox',
 													fieldLabel : '',
-													itemId : 'carModel',
+													itemId : 'carTypeID',
+													name : 'carTypeID',
 													displayField : 'text',
 													valueField : 'id',
 													width : 100,
 													labelWidth : 130,
 													store : ExtjsCmp
-															.createStore('../services/common/getCombo'),
+															.createStore('../services/common/findCarModelCombo'),
 													queryMode : 'remote',
 													typeAhead : true,
+													allowBlank : false,
+													emptyText : '请输入所需车型'
 												} ]
-											}, {
+											},
+											{
 												xtype : 'fieldcontainer',
 												height : 24,
 												layout : {
 													type : 'column'
 												},
 												fieldLabel : '用车人',
-												items : [ {
-													xtype : 'combobox',
-													fieldLabel : ''
-												}, {
-													xtype : 'combobox',
-													fieldLabel : ''
-												}, {
-													xtype : 'combobox',
-													width : 151,
-													fieldLabel : '指定情况',
-													labelWidth : 60
-												}, {
-													xtype : 'combobox',
-													fieldLabel : ''
-												} ]
+												items : [
+														{
+															xtype : 'combobox',
+															fieldLabel : '',
+															name:'contactPerson',
+														},
+														{
+															xtype : 'textfield',
+															fieldLabel : '',
+															name:'contactMobile',
+														},
+														{
+															xtype : 'combobox',
+															fieldLabel : '指定情况',
+															itemId : 'assignedCarID',
+															name : 'assignedCarID',
+															displayField : 'text',
+															valueField : 'id',
+															width : 180,
+															labelWidth : 80,
+															store : ExtjsCmp
+																	.createStore('../services/common/findCarCombo'),
+															queryMode : 'remote',
+															typeAhead : true,
+															allowBlank : false,
+															emptyText : '请输入车辆'
+														},
+
+														{
+															xtype : 'combobox',
+															fieldLabel : '',
+															itemId : 'assignedDriverID',
+															name : 'assignedDriverID',
+															displayField : 'text',
+															valueField : 'id',
+															width : 100,
+															labelWidth : 130,
+															store : ExtjsCmp
+																	.createStore('../services/common/findDriverCombo'),
+															queryMode : 'remote',
+															typeAhead : true,
+															allowBlank : false,
+															emptyText : '请输入驾驶员'
+														} ]
 											} ]
-								}, {
+								},
+								{
 									xtype : 'fieldset',
 									title : '',
 									anchor : '100%',
-									items : [ {
-										xtype : 'fieldcontainer',
-										height : 24,
-										layout : {
-											type : 'column'
-										},
-										fieldLabel : '上车时间',
-										anchor : '100%',
-										items : [ {
-											xtype : 'datefield',
-											width : 100,
-											fieldLabel : ''
-										}, {
-											xtype : 'timefield',
-											width : 130,
-											fieldLabel : ''
-										}, {
-											xtype : 'datefield',
-											width : 160,
-											fieldLabel : '结束时间',
-											labelWidth : 60
-										}, {
-											xtype : 'timefield',
-											width : 130,
-											fieldLabel : ''
-										} ]
-									}, {
-										xtype : 'fieldcontainer',
-										height : 24,
-										layout : {
-											type : 'column'
-										},
-										fieldLabel : '上车地点',
-										anchor : '100%',
-										items : [ {
-											xtype : 'combobox',
-											fieldLabel : ''
-										}, {
-											xtype : 'combobox',
-											width : 201,
-											fieldLabel : '上车地点',
-											labelWidth : 60
-										} ]
-									}, {
-										xtype : 'fieldcontainer',
-										height : 24,
-										layout : {
-											type : 'column'
-										},
-										fieldLabel : '途径地',
-										anchor : '100%',
-										items : [ {
-											xtype : 'combobox',
-											width : 114,
-											fieldLabel : ''
-										}, {
-											xtype : 'combobox',
-											width : 114,
-											labelWidth : 60
-										}, {
-											xtype : 'combobox',
-											width : 114,
-											labelWidth : 60
-										}, {
-											xtype : 'combobox',
-											width : 114,
-											labelWidth : 60
-										} ]
-									} ]
+									items : [
+											{
+												xtype : 'fieldcontainer',
+												height : 24,
+												layout : {
+													type : 'column'
+												},
+												fieldLabel : '上车时间',
+												anchor : '100%',
+												items : [ {
+													xtype : 'datefield',
+													width : 100,
+													format: 'Y-m-d',
+													itemId : 'starttime',
+													name : 'starttime',
+													fieldLabel : '',
+														allowBlank : false,
+														emptyText : '请输入上车时间'
+												}, {
+													xtype : 'timefield',
+													width : 130,
+													isFormField:false, 
+													fieldLabel : ''
+												}, {
+													xtype : 'datefield',
+													width : 160,
+													fieldLabel : '结束时间',
+													labelWidth : 60,
+													format: 'Y-m-d',
+													itemId : 'endtime',
+													name : 'endtime',
+													allowBlank : false,
+													emptyText : '请输入结束时间'
+												}, {
+													xtype : 'timefield',
+													isFormField:false, 
+													width : 130,
+													fieldLabel : ''
+												} ]
+											},
+											{
+												xtype : 'fieldcontainer',
+												height : 24,
+												layout : {
+													type : 'column'
+												},
+												fieldLabel : '上车地点',
+												anchor : '100%',
+												items : [
+														{
+															xtype : 'combobox',
+															name : 'startAddre',
+															itemId : 'startAddre',
+															displayField : 'text',
+															valueField : 'id',
+															width : 100,
+															labelWidth : 130,
+															store : ExtjsCmp
+																	.createStore('../services/common/findAddressCombo'),
+															queryMode : 'remote',
+															typeAhead : true,
+															allowBlank : false,
+															emptyText : '请输入上车地点'
+														},
+														{
+															xtype : 'combobox',
+															width : 201,
+															fieldLabel : '下车地点',
+															name : 'destination',
+															itemId : 'destination',
+															displayField : 'text',
+															valueField : 'id',
+															labelWidth : 80,
+															store : ExtjsCmp
+																	.createStore('../services/common/findAddressCombo'),
+															queryMode : 'remote',
+															typeAhead : true,
+															allowBlank : false,
+															emptyText : '请输入下车地点'
+														} ]
+											},
+											{
+												xtype : 'fieldcontainer',
+												height : 24,
+												layout : {
+													type : 'column'
+												},
+												fieldLabel : '途径地',
+												anchor : '100%',
+												items : [
+														{
+															xtype : 'combobox',
+															width : 114,
+															fieldLabel : '',
+															name : 'passAddr',
+															itemId : 'passAddr',
+															displayField : 'text',
+															valueField : 'id',
+															store : ExtjsCmp
+																	.createStore('../services/common/findAddressCombo'),
+															queryMode : 'remote',
+															typeAhead : true,
+														},
+														{
+															xtype : 'combobox',
+															width : 60,
+															fieldLabel : '',
+															itemId : 'assignedDriverID',
+															displayField : 'text',
+															isFormField:false, 
+															valueField : 'id',
+															store : ExtjsCmp
+																	.createStore('../services/common/findAddressCombo'),
+															queryMode : 'remote',
+															
+															typeAhead : true,
+														},
+														 ]
+											} ]
 								}, {
 									xtype : 'fieldset',
 									title : '',
@@ -206,12 +330,24 @@ Ext
 										anchor : '100%',
 										items : [ {
 											xtype : 'combobox',
-											fieldLabel : ''
+											fieldLabel : '',
+											name : 'isReturn',
+											displayField : 'text',
+											valueField : 'id',
+											store : yesOrNoStore,
+											queryMode : 'local',
+											typeAhead : true,
 										}, {
 											xtype : 'combobox',
 											width : 201,
 											fieldLabel : '是否出省',
-											labelWidth : 60
+											labelWidth : 60,
+											name : "isOutProvince",
+											displayField : 'text',
+											valueField : 'id',
+											store : yesOrNoStore,
+											queryMode : 'local',
+											typeAhead : true,
 										} ]
 									}, {
 										xtype : 'fieldcontainer',
@@ -224,6 +360,7 @@ Ext
 										items : [ {
 											xtype : 'textareafield',
 											height : 150,
+											name:'reason',
 											width : 450,
 											fieldLabel : ''
 										} ]
@@ -234,15 +371,17 @@ Ext
 
 				// var cb = ExtjsCmp
 				// .createCombo('../services/org/getComboOrg?parent=null');
-				 _form.down('combobox[itemId=org]').addListener('select', function(combo, record, index) {
-					 _form.down('combobox[itemId=org2]').clearValue();
-						// cb3.clearValue();
-					 _form.down('combobox[itemId=org2]').store.load({
-							params : {
-								parent : this.value
-							}
+				_form.down('combobox[itemId=org]').addListener('select',
+						function(combo, record, index) {
+							_form.down('combobox[itemId=org2]').clearValue();
+							// cb3.clearValue();
+							_form.down('combobox[itemId=org2]').store.load({
+								params : {
+									parent : this.value,
+									type:1
+								}
+							});
 						});
-					});
 
 			},
 

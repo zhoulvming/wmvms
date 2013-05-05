@@ -6,6 +6,7 @@ import org.myplay.entity.Organization;
 import org.myplay.web.ComboVo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface OrgDao extends
 		PagingAndSortingRepository<Organization, String> {
@@ -15,12 +16,12 @@ public interface OrgDao extends
 	@Query(" select o from Organization o where o.deleteFlag=0")
 	List<Organization> findAllOrg();
 
-	@Query(" select new org.myplay.web.ComboVo(o.id,o.name) from Organization o where o.type  ='1' and o.parentOrganizationId = (select id from  Organization where parentOrganizationId =null and type  ='1' )")
+	@Query(" select new org.myplay.web.ComboVo(o.id,o.name) from Organization o where o.type  = :type and o.parentOrganizationId = (select id from  Organization where parentOrganizationId =null and type= :type)")
 	/**
 	 * 第一层用车单位
 	 * @return
 	 */
-	List<Object[]> findOrgByType();
+	List<Object[]> findRootOrgByType(@Param("type")String type);
 
 	/**
 	 * 用车单位的子机构
@@ -28,8 +29,8 @@ public interface OrgDao extends
 	 * @param parent
 	 * @return
 	 */
-	@Query(" select  new org.myplay.web.ComboVo(o.id,o.name) from Organization o where o.type  ='1' and o.parentOrganizationId = ?")
-	List<ComboVo> findOrgByType(String parent);
+	@Query(" select  new org.myplay.web.ComboVo(o.id,o.name) from Organization o where o.type  =? and o.parentOrganizationId = ?")
+	List<ComboVo> findSubOrgByType(String type,String parent);
 
 	@Query(" select o from Organization o where o.type='2' and o.id in ( select dispatchDepartID from DepartmentStruc )")
 	List<Organization> findBindedOrg();

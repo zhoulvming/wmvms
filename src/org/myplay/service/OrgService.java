@@ -5,8 +5,7 @@ import java.util.UUID;
 
 import org.myplay.entity.DepartmentStruc;
 import org.myplay.entity.Organization;
-import org.myplay.repository.CommonDao;
-import org.myplay.repository.OrgBindDao;
+import org.myplay.repository.CommonRepository;
 import org.myplay.repository.OrgDao;
 import org.myplay.web.ComboVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrgService {
 
 	@Autowired
-	public void setBindDao(OrgBindDao bindDao) {
-		this.bindDao = bindDao;
-	}
-
 	private OrgDao orgDao;
 
-	private OrgBindDao bindDao;
 	@Autowired
-	public void setCommonDao(CommonDao commonDao) {
-		this.commonDao = commonDao;
-	}
-
-	private CommonDao commonDao;
-
-	@Autowired
-	public void setOrgDao(OrgDao orgDao) {
-		this.orgDao = orgDao;
-	}
+	CommonRepository commonRepository;
 
 	@Transactional(readOnly = false)
 	public void saveOrg(Organization org, String parentId) {
@@ -49,8 +34,7 @@ public class OrgService {
 	}
 
 	public List<Organization> findAll() {
-//			return orgDao.findAllOrg();
-		return commonDao.findAllOrg();
+		return orgDao.findAllOrg();
 	}
 
 	public List<Organization> findBindedOrg(String model) {
@@ -64,12 +48,12 @@ public class OrgService {
 
 	}
 
-	public List findOrgByType() {
-		return orgDao.findOrgByType();
+	public List findRootOrgByType(String type) {
+		return orgDao.findRootOrgByType(type);
 	}
 
-	public List<ComboVo> findOrgByType(String parent) {
-		return orgDao.findOrgByType(parent);
+	public List<ComboVo> findSubOrgByType(String type,String parent) {
+		return orgDao.findSubOrgByType(type,parent);
 	}
 
 	public List<Organization> findRoot(String type) {
@@ -83,7 +67,8 @@ public class OrgService {
 		o.setId(UUID.randomUUID().toString());
 		o.setApplyDepartID(scrOrgId);
 		o.setDispatchDepartID(desOrgId);
-		bindDao.save(o);
+
+		commonRepository.save(o);
 		// orgDao.bindOrg(scrOrgId, desOrgId);
 	}
 }

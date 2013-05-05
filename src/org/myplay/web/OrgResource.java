@@ -1,7 +1,6 @@
 package org.myplay.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +27,7 @@ import org.myplay.entity.JsonResult;
 import org.myplay.entity.Organization;
 import org.myplay.entity.User;
 import org.myplay.service.AccountService;
+import org.myplay.service.CommonService;
 import org.myplay.service.OrgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +59,8 @@ public class OrgResource {
 
 	protected OrgService orgService;
 
+	
+	CommonService commonService;
 	public OrgService getOrgService() {
 		return orgService;
 	}
@@ -166,7 +168,7 @@ public class OrgResource {
 	@GET
 	@Path("/getComboOrg")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getComboOrg(@QueryParam("parent") String parent)
+	public String getComboOrg(@QueryParam("type") String type,@QueryParam("parent") String parent)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
 		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
@@ -179,10 +181,10 @@ public class OrgResource {
 			// if(level.equals("2")){
 			if (null!=parent&&parent.equals("null")){
 				
-				list=orgService.findOrgByType();
+				list=orgService.findRootOrgByType(type);
 			}else{
 				
-				list = orgService.findOrgByType(parent);
+				list = orgService.findSubOrgByType(type, parent);
 			}
 			
 			// }
@@ -220,6 +222,8 @@ public class OrgResource {
 			for (String orgId : arr) {
 
 				orgService.bindOrg(scrOrgId, orgId);
+				
+				
 			}
 
 			jsonResult.setSuccess(true);
