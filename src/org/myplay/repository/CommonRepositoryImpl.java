@@ -19,7 +19,7 @@ public class CommonRepositoryImpl implements CommonRepository {
 	private EntityManager em;
 
 	@Override
-	public List<ComboVo> findComboData() {
+	public List<ComboVo> findCarModelCombo() {
 		return em
 				.createQuery(
 						"select new org.myplay.web.ComboVo(o.id,o.carModel) from CarModel o")
@@ -44,6 +44,22 @@ public class CommonRepositoryImpl implements CommonRepository {
 
 		}
 		em.persist(o);
+	}
+
+	@Override
+	public List<ComboVo> findCarCombo() {
+		return em
+				.createQuery(
+						"select new org.myplay.web.ComboVo(o.id,o.carNum) from CarInfo o")
+				.getResultList();
+	}
+
+	@Override
+	public List<ComboVo> findDriverCombo() {
+		return em
+				.createQuery(
+						"select new org.myplay.web.ComboVo(o.id,o.name) from DriverInfo o")
+				.getResultList();
 	}
 
 }

@@ -14,10 +14,15 @@ public class CommonService {
 	@Autowired
 	private CommonRepository commonRepository;
 
-	public List findComboData() {
-		return commonRepository.findComboData();
+	public List findCarModelCombo() {
+		return commonRepository.findCarModelCombo();
 	}
-
+	public List findCarCombo() {
+		return commonRepository.findCarCombo();
+	}
+	public List findDriverCombo() {
+		return commonRepository.findDriverCombo();
+	}
 	public void save(BaseEntityBean o) {
 
 		commonRepository.save(o);

@@ -7,7 +7,11 @@ import org.myplay.web.ComboVo;
 
 public interface CommonRepository {
 
-	List<ComboVo> findComboData();
+	List<ComboVo> findCarModelCombo();
+	
+	List<ComboVo> findCarCombo();
+	
+	List<ComboVo> findDriverCombo();
 
 	public void save(BaseEntityBean o);
 }
