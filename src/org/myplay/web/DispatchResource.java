@@ -24,6 +24,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
+import org.myplay.entity.Apply;
 import org.myplay.entity.Assign;
 import org.myplay.entity.JsonResult;
 import org.myplay.entity.Organization;
@@ -38,11 +39,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * 用户管理
+ * 调度管理
  * 
- * 
- * 
- * @author peter
+ * @author Zhou.lvming
  */
 
 @Path("/dispatch")
@@ -66,12 +65,9 @@ public class DispatchResource {
 	public void setDispatchService(DispatchService dispatchService) {
 		this.dispatchService = dispatchService;
 	}
-
 	
 	public <T> T getBean(String name, Class<T> clazz) {
-
-		ApplicationContext ctx = WebApplicationContextUtils
-				.getWebApplicationContext(servletContex);
+		ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContex);
 		return ctx.getBean(name, clazz);
 	}
 	
@@ -79,28 +75,41 @@ public class DispatchResource {
 	@Path("/addAssign")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String addOrg(Assign assign)
-			throws JsonGenerationException, JsonMappingException, IOException {
+	public String addAssign(Assign assign) throws JsonGenerationException, JsonMappingException, IOException {
 
 		JsonResult<User> jsonResult = new JsonResult<User>();
 		try {
-
 			dispatchService = this.getBean("dispatchService", DispatchService.class);
 			dispatchService.addAssign(assign);
-
 			jsonResult.setSuccess(true);
-
 			jsonResult.setMessage("保存成功!");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			jsonResult.setSuccess(false);
-
 			jsonResult.setMessage("保存失败!");
 		}
-		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS,
-				false);// 封闭时候戳输出，此时是ISO格局
+		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);// 封闭时候戳输出，此时是ISO格局
 		return mapper.writeValueAsString(jsonResult);
+	}
+	
+	@GET
+	@Path("/searchApply")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String searchApply(String status) throws JsonGenerationException, JsonMappingException, IOException {
+
+		JSONArray root = new JSONArray();
+		dispatchService = this.getBean("dispatchService", DispatchService.class);
+		List<Apply> dataList = dispatchService.searchApply(status);
+		for (Apply o : dataList) {
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("id", o.getId());
+//			map.put("text", o.getName());
+			root.add(o);
+
+		}
+
+		root.toJSONObject(root);
+		return root.toString();
 	}
 
 }

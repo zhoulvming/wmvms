@@ -23,7 +23,7 @@ Ext.define('Wanli.view.ui.BaseViewport', {
 			height:50,
 			region : 'north',
 			baseCls:"x-plain",
-			html : '<div class="head_wrapper" id="headBig"><div class="head_box"><div class="logo"></div><div class="oper"><a href="###" title="退出" onclick="logout();"></a><a href="javascript: void(0);" id="headUpBtn" title="向上"></a></div><div class="user">周星星</div><div class="date">2013-3-20 10:30</div>	</div></div>',
+			html : '<div class="head_wrapper" id="headBig"><div class="head_box"><div class="logo"></div><div class="oper"><a href="###" title="退出" onclick="logout();"></a><a href="javascript: void(0);" id="headUpBtn" title="向上"></a></div><div class="user">系统管理员</div><div class="date">2013-3-20 10:30</div>	</div></div>',
 		},{
 			xtype : 'treepanel',
 			id : 'tree',

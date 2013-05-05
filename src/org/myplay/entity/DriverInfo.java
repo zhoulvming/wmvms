@@ -76,8 +76,25 @@ public class DriverInfo extends BaseEntityBean implements Serializable {
 	@GridColumn(text = "是否兼职", seq = 1, hidden = false, searchable=true)
 	private Integer typeID;
 
-	@GridColumn(text = "状态", seq = 4, hidden = false, searchable=true)
 	private Integer status;
+	
+	@Transient
+	@GridColumn(text = "状态", seq = 2, hidden = false,searchable=true)
+	private String driverStatus;
+	public String getDriverStatus() {
+		String retValue = "";
+		if (this.status == 0) {
+			retValue = "无单";
+		} else if(this.status == 1) {
+			retValue = "派车单执行中";
+		} else if(this.status == 2) {
+			retValue = "不可用";
+		}
+		return retValue;
+	}
+	public void setDriverStatus(String driverStatus) {
+		this.driverStatus = driverStatus;
+	}	
 	
 	private String unValidDes;
 

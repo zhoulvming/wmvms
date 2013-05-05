@@ -13,6 +13,7 @@ Ext.define('vms.controller.DispatchCtrl', {
     selectedApplyID : null,
     selectedCarID : null,
     selectedDriverID : null,
+    selectedAssignPlaceID : null,
     me : null,
     	
     init: function() {
@@ -39,8 +40,7 @@ Ext.define('vms.controller.DispatchCtrl', {
             	afterrender: function(win){
             		//取数据
             		me.searchApplyInfoWithID(win, me); //申请单信息
-            		me.searchDispatchPlace(win, me); //派车点
-                	me.searchCarsByGroupID(win, me); //Car List
+            		me.searchDispatchPlace(win, me); //派车点&carlist
                 	me.searchDriver(win, me); // Driver List
                 	
                 	//返回按钮事件
@@ -93,7 +93,6 @@ Ext.define('vms.controller.DispatchCtrl', {
     	           '"status":"0"' +
     			'}';
 
-        alert(params);
         
         
     	
@@ -104,7 +103,9 @@ Ext.define('vms.controller.DispatchCtrl', {
             headers : {"Content-Type" : "application/json; charset=utf-8"},
             success : function(response,opts) {
                 var obj = Ext.decode(response.responseText);
-                Ext.Msg.alert('提示',obj.message);
+                //Ext.Msg.alert('提示',obj.message);
+                Ext.Msg.alert('提示','派单成功，可回到派车单查询界面查看信息。');
+                win.close();
             },
             failure : function(form,action) {
                 Ext.Msg.alert('提示','保存失败');
@@ -120,22 +121,7 @@ Ext.define('vms.controller.DispatchCtrl', {
         var searchUrl= '../services/simplecommon/load?model=Organization';
         var conStr = '{"type":"2"}';
         searchUrl += "&conStr=" + conStr;
-        
-        
-//        var obj = VMSComm.search(searchUrl, conStr);
-//        alert(obj);
-//        var radioGroup = win.down('radiogroup[itemId=radioGroup]');
-//        Ext.each(obj.root, function(record){
-//          var inputValue = 1;
-//          var boxLabel = "";
-//          var radio = new Ext.form.Radio({
-//                name : "dispatchPlace",
-//                inputValue : "1",
-//                boxLabel : "驾驶班1"
-//            });
-//            radioGroup.add(radio);
-//        });        
-        
+
         Ext.Ajax.request({
             url : encodeURI(searchUrl),
             timeout : 600000,
@@ -145,20 +131,36 @@ Ext.define('vms.controller.DispatchCtrl', {
             success : function(response, opts) {
                 var obj = Ext.decode(response.responseText);
                 var data = obj.root;
-                
                 var radioGroup = win.down('radiogroup[itemId=radioGroup]');
+                var cntIdx = 0;
+                var firstChecked = false;
                 Ext.each(data, function(record){
-                	var inputValue = 1;
-                	var boxLabel = "";
                 	if(record.parentOrganizationId != null) {
+                		var firstChecked = false;
+                		if(cntIdx == 0) {
+                			me_.selectedAssignPlaceID = record.id;
+                			firstChecked = true;
+                			me_.searchCarsByGroupID(win, me_);
+                		}
+                		cntIdx ++;
                 	    var radio = new Ext.form.Radio({
                             name : "dispatchPlace",
                             inputValue : record.id,
-                            boxLabel : record.name
+                            checked: firstChecked,
+                            boxLabel : record.name,
+                            listeners : {
+                            	change : function(obj) {
+                            	   if(obj.checked == true) {
+                            	       me_.selectedAssignPlaceID = obj.inputValue;
+                            	       me_.searchCarsByGroupID(win, me_);
+                            	   }
+                            	}
+                            }
                         });
                         radioGroup.add(radio);
                 	}
                 });
+
             },
                 
             failure : function(responseObject) {
@@ -386,7 +388,6 @@ Ext.define('vms.controller.DispatchCtrl', {
      */
     searchCarsByGroupID : function(win, me_) {
     	
-    	var groupID = '1';
         var selectedIndex= [];
         var selectedGridId=[];
         var gridStore= null;
@@ -395,16 +396,18 @@ Ext.define('vms.controller.DispatchCtrl', {
         var resultTitle= '';
         var infoWin =null;
         
+        var conStr = '{}';
+        if (me_.selectedAssignPlaceID != null) {
+        	conStr = '{"assignPlaceID":"' + me_.selectedAssignPlaceID + '"}';
+        }
+        searchUrl = searchUrl + "&conStr=" + conStr;
+        
 		Ext.Ajax.request({
-			url : searchUrl,
+			url : encodeURI(searchUrl),
 			timeout : 600000,
 			method : 'GET',
 			headers : {
 				"Content-Type" : "application/json; charset=utf-8"
-			},
-			params : {
-				//conStr : '{GroupID:' + groupID + '}'
-				conStr : '{}'
 			},
 			scope : this,
 			success : function(response, opts) {
@@ -431,16 +434,13 @@ Ext.define('vms.controller.DispatchCtrl', {
 					autoLoad : true,
 					proxy : {
 						type : 'ajax',
-						extraParams : {
-							//conStr : Ext.JSON.encode(fv)
-							conStr : '{}'
-						},
-						url : searchUrl,
+						url : encodeURI(searchUrl),
 						reader : {
 							type : 'json',
 							root : 'root'
 						}
 					}
+					
 				});
 				
 				searchGrid = Ext.create('Ext.grid.Panel', {
@@ -459,7 +459,8 @@ Ext.define('vms.controller.DispatchCtrl', {
 				});
 
             	if(searchGrid != null) {
-            		win.getComponent('dispatchPanel').getComponent('dispatchPanelSelect').getComponent('carList').add(searchGrid);
+            		win.down('panel[itemId=carList]').removeAll();
+            		win.down('panel[itemId=carList]').add(searchGrid);
 				} else {
             		alert('searchResult is null');
             	}
@@ -484,7 +485,6 @@ Ext.define('vms.controller.DispatchCtrl', {
         var selectedIndex= [];
         var selectedGridId=[];
         var gridStore= null;
-        //var searchGrid= null;
         var searchUrl= '../services/simplecommon/load?model=Apply';
         var resultTitle= '';
         var infoWin =null;

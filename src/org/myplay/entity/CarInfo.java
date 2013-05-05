@@ -19,7 +19,7 @@ public class CarInfo extends BaseEntityBean implements Serializable {
 
 	private int assetsTypeID;
 
-	private int assignPlaceID;
+	private String assignPlaceID;
 
 	private int carBrandID;
 
@@ -49,10 +49,31 @@ public class CarInfo extends BaseEntityBean implements Serializable {
 	public void setCarTypeName(String carTypeName) {
 		this.carTypeName = carTypeName;
 	}
+	
+	@GridColumn(text = "载人数", seq = 4, hidden = false,searchable=true)
+	private int personCarry;
+	
+	@Transient
+	@GridColumn(text = "状态", seq = 2, hidden = false,searchable=true)
+	private String carStatus;
+	public String getCarStatus() {
+		String retValue = "";
+		if (this.status == 0) {
+			retValue = "无单";
+		} else if(this.status == 1) {
+			retValue = "派车单执行中";
+		} else if(this.status == 2) {
+			retValue = "不可用";
+		}
+		return retValue;
+	}
+	public void setCarStatus(String carStatus) {
+		this.carStatus = carStatus;
+	}	
 
 	private int checkTime;
 
-	private int departmentID;
+	private String departmentID;
 
 	private int deviceID;
 
@@ -82,8 +103,7 @@ public class CarInfo extends BaseEntityBean implements Serializable {
 
 	private String parkPlace;
 
-	@GridColumn(text = "载人数", seq = 4, hidden = false,searchable=true)
-	private int personCarry;
+
 
 	private String phoneNum;
 
@@ -96,7 +116,6 @@ public class CarInfo extends BaseEntityBean implements Serializable {
 	private int starttime;
 
 	@OrderBy
-	@GridColumn(text = "状态", seq = 4, hidden = false,searchable=true)
 	private int status;
 
 	private String modelID;
@@ -122,11 +141,11 @@ public class CarInfo extends BaseEntityBean implements Serializable {
 		this.assetsTypeID = assetsTypeID;
 	}
 
-	public int getAssignPlaceID() {
+	public String getAssignPlaceID() {
 		return this.assignPlaceID;
 	}
 
-	public void setAssignPlaceID(int assignPlaceID) {
+	public void setAssignPlaceID(String assignPlaceID) {
 		this.assignPlaceID = assignPlaceID;
 	}
 
@@ -162,11 +181,11 @@ public class CarInfo extends BaseEntityBean implements Serializable {
 		this.checkTime = checkTime;
 	}
 
-	public int getDepartmentID() {
+	public String getDepartmentID() {
 		return this.departmentID;
 	}
 
-	public void setDepartmentID(int departmentID) {
+	public void setDepartmentID(String departmentID) {
 		this.departmentID = departmentID;
 	}
 

@@ -96,7 +96,7 @@ public class Assign extends BaseEntityBean implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startUserTime;
 
-	private int status;
+	private Integer status;
 
 	private String taskTypeID;
 
@@ -410,11 +410,11 @@ public class Assign extends BaseEntityBean implements Serializable {
 		this.startUserTime = startUserTime;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

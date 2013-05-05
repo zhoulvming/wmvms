@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
+import org.myplay.entity.Apply;
 import org.myplay.entity.Assign;
 import org.myplay.entity.DepartmentStruc;
 import org.myplay.entity.Organization;
@@ -20,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Transactional(readOnly = true)
 public class DispatchService {
-
 
 	private DispatchDao dispatchDao;
 	@Autowired
@@ -51,5 +51,10 @@ public class DispatchService {
 		
 		assign.setSerialID(newSerial);
 		dispatchDao.save(assign);
+	}
+
+	@Transactional(readOnly = false)
+	public List<Apply> searchApply(String status) {
+		return dispatchDao.searchApply(status);
 	}
 }

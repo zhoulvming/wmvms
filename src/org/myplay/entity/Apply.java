@@ -103,8 +103,7 @@ public class Apply extends BaseEntityBean implements Serializable {
 	@GridColumn(text = "上车时间", seq = 6, hidden = false,searchable=true)
 	private String starttime;
 
-	//@GridColumn(text = "状态", seq = 7, hidden = false,searchable=true)
-	private int status;
+	private Integer status;
 	
 	@Transient
 	@GridColumn(text = "状态", seq = 7, hidden = false,searchable=true)
@@ -500,11 +499,11 @@ public class Apply extends BaseEntityBean implements Serializable {
 		this.starttime = starttime;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
