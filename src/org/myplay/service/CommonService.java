@@ -2,8 +2,8 @@ package org.myplay.service;
 
 import java.util.List;
 
-import org.myplay.repository.CommonRepositoryCustom;
-import org.myplay.repository.MyRepository;
+import org.myplay.entity.BaseEntityBean;
+import org.myplay.repository.CommonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,18 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class CommonService {
 	@Autowired
-	private CommonRepositoryCustom commonRepositoryCustom;
-	
-	@Autowired
-	private MyRepository myRepository;
+	private CommonRepository commonRepository;
 
 	public List findComboData() {
-		return commonRepositoryCustom.findComboData();
+		return commonRepository.findComboData();
 	}
 
-	public void save(Object o) {
-		myRepository.save(o);
+	public void save(BaseEntityBean o) {
 
+		commonRepository.save(o);
 	}
 
 }

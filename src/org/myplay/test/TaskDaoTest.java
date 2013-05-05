@@ -2,23 +2,26 @@ package org.myplay.test;
 
 import org.junit.Test;
 import org.myplay.entity.Organization;
-import org.myplay.repository.CommonDao;
-import org.myplay.repository.MyRepository;
+import org.myplay.repository.CommonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.ContextConfiguration;
 
 @ContextConfiguration(locations = { "/applicationContext.xml" })
 public class TaskDaoTest extends SpringTransactionalTestCase {
 
+	
 	@Autowired
-	private CommonDao dao;
+	CommonRepository commonRepositoryCustom;
 	@Autowired
-	private MyRepository<Organization,String> myRepository;
+	CrudRepository<Organization, String>  dao;
 
 	@Test
 	public void findTasksByUserId() throws Exception {
 
 //		dao.findAll();
-		myRepository.findAllOrg();
+//		myRepository.findAll();
+		dao.findAll();
+//		commonRepositoryCustom.findComboData();
 	}
 }

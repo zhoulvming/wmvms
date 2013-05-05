@@ -1,7 +1,6 @@
 package org.myplay.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +27,7 @@ import org.myplay.entity.JsonResult;
 import org.myplay.entity.Organization;
 import org.myplay.entity.User;
 import org.myplay.service.AccountService;
+import org.myplay.service.CommonService;
 import org.myplay.service.OrgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +59,8 @@ public class OrgResource {
 
 	protected OrgService orgService;
 
+	
+	CommonService commonService;
 	public OrgService getOrgService() {
 		return orgService;
 	}
@@ -220,6 +222,8 @@ public class OrgResource {
 			for (String orgId : arr) {
 
 				orgService.bindOrg(scrOrgId, orgId);
+				
+				
 			}
 
 			jsonResult.setSuccess(true);
