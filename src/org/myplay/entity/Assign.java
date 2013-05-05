@@ -26,7 +26,7 @@ public class Assign extends BaseEntityBean implements Serializable {
 
 	private int assignerID;
 
-	private int assignPlaceID;
+	private String assignPlaceID;
 
 	private String carID;
 
@@ -145,11 +145,11 @@ public class Assign extends BaseEntityBean implements Serializable {
 		this.assignerID = assignerID;
 	}
 
-	public int getAssignPlaceID() {
+	public String getAssignPlaceID() {
 		return this.assignPlaceID;
 	}
 
-	public void setAssignPlaceID(int assignPlaceID) {
+	public void setAssignPlaceID(String assignPlaceID) {
 		this.assignPlaceID = assignPlaceID;
 	}
 

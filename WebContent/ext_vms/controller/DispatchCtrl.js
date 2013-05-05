@@ -94,6 +94,8 @@ Ext.define('vms.controller.DispatchCtrl', {
     			'}';
 
         alert(params);
+        
+        
     	
         Ext.Ajax.request({
             url : '../services/dispatch/addAssign',
