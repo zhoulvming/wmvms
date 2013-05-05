@@ -1,9 +1,12 @@
 package org.myplay.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -100,15 +103,10 @@ public class Apply extends BaseEntityBean implements Serializable {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
+//	@Formula("(select max(serialID) from Apply o )")
+//	private String maxSerialID;
+//	
 	
-//	private long totalCount;
-//	@Formula("(select max(serialID) from Apply o where o.serialID like '%+"+ new  SimpleDateFormat("yyyyMMdd")
-//			
-//			"%')")
-//	public String getSID(){
-//		
-//		
-//	}
 	
 	//用车事由表关联
     @OneToOne(optional=false,cascade={CascadeType.ALL})  
@@ -513,8 +511,23 @@ public class Apply extends BaseEntityBean implements Serializable {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-
+//	@Access(AccessType.PROPERTY)
 	public String getSerialID() {
+		
+		
+//		Date now = new Date();
+//		SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+//		String maxSerial = this.maxSerialID;
+//		String newSerial = "YC" + f.format(now);
+//		if (maxSerial != null) {
+//			BigInteger a = new BigInteger(maxSerial.substring(2));
+//			BigInteger c = a.add(new BigInteger("1"));
+//			String test = String.valueOf(c);
+//			newSerial = "PC" + test;
+//		} else {
+//			newSerial += "0001";
+//		}
+//		return newSerial;
 		return this.serialID;
 	}
 
