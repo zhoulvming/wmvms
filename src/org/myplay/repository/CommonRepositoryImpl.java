@@ -62,4 +62,20 @@ public class CommonRepositoryImpl implements CommonRepository {
 				.getResultList();
 	}
 
+	@Override
+	public List<ComboVo> findAddressCombo() {
+		return em
+				.createQuery(
+						"select new org.myplay.web.ComboVo(o.id,o.des) from UsualPlace o")
+				.getResultList();
+	}
+
+	@Override
+	public List<ComboVo> findTaskTypeCombo() {
+		return em
+				.createQuery(
+						"select new org.myplay.web.ComboVo(o.id,o.reason) from TaskType o")
+				.getResultList();
+	}
+
 }

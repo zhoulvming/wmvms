@@ -23,6 +23,14 @@ public class CommonService {
 	public List findDriverCombo() {
 		return commonRepository.findDriverCombo();
 	}
+	
+	public List findAddressCombo() {
+		return commonRepository.findAddressCombo();
+	}
+	
+	public List findTaskTypeCombo() {
+		return commonRepository.findTaskTypeCombo();
+	}
 	public void save(BaseEntityBean o) {
 
 		commonRepository.save(o);

@@ -1,11 +1,18 @@
 package org.myplay.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.myplay.entity.BaseEntityBean;
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Formula;
 
 
 /**
@@ -32,13 +39,13 @@ public class Apply extends BaseEntityBean implements Serializable {
 
 	private int buildtime;
 
-	private int carTypeID;
+//	private int carTypeID;
 
 	private int changeable;
 
 	private float contactMobile;
 
-	private String departMentID;
+//	private String departMentID;
 	
 	private int couserID;
 
@@ -93,17 +100,49 @@ public class Apply extends BaseEntityBean implements Serializable {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
-
+	
+//	private long totalCount;
+//	@Formula("(select max(serialID) from Apply o where o.serialID like '%+"+ new  SimpleDateFormat("yyyyMMdd")
+//			
+//			"%')")
+//	public String getSID(){
+//		
+//		
+//	}
+	
+	//用车事由表关联
+    @OneToOne(optional=false,cascade={CascadeType.ALL})  
+    @JoinColumn(name="TaskTypeID")
+    private TaskType taskType;
+	public TaskType getTaskType() {
+		return taskType;
+	}
+	public void setTaskType(TaskType taskType) {
+		this.taskType = taskType;
+	}
+	
+	
+	
+//	private String taskTypeID;
+//	@Formula("(select count(*) from Apply)")
+	@Transient
 	@GridColumn(text = "用车事由", seq = 4, hidden = false,searchable=true)
+	private String taskTypeVal;
+	public String getTaskTypeVal() {
+		return taskType.getReason();
+	}
+	public void setTaskTypeVal(String taskTypeVal) {
+		this.taskTypeVal = taskTypeVal;
+	}
+
 	private int applykind;
 	
 	@GridColumn(text = "用车人", seq = 5, hidden = false,searchable=true)
 	private String contactPerson;
 	
-	@GridColumn(text = "上车时间", seq = 6, hidden = false,searchable=true)
+	@GridColumn(text = "上车时间", seq = 6, hidden = false,searchable=false)
 	private String starttime;
 
-	//@GridColumn(text = "状态", seq = 7, hidden = false,searchable=true)
 	private int status;
 	
 	@Transient
@@ -144,7 +183,6 @@ public class Apply extends BaseEntityBean implements Serializable {
 
 	private int isLock;
 
-	//@GridColumn(text = "是否出省", seq = 8, hidden = false,searchable=true)
 	private int isOutProvince;
 	
 	@Transient
@@ -181,7 +219,7 @@ public class Apply extends BaseEntityBean implements Serializable {
 	private String startAddre;
 
 
-	private int taskID;
+//	private String taskTypeID;
 
 	private int usualAddrID;
 
@@ -260,13 +298,13 @@ public class Apply extends BaseEntityBean implements Serializable {
 		this.buildtime = buildtime;
 	}
 
-	public int getCarTypeID() {
-		return this.carTypeID;
-	}
-
-	public void setCarTypeID(int carTypeID) {
-		this.carTypeID = carTypeID;
-	}
+//	public int getCarTypeID() {
+//		return this.carTypeID;
+//	}
+//
+//	public void setCarTypeID(int carTypeID) {
+//		this.carTypeID = carTypeID;
+//	}
 
 	public int getChangeable() {
 		return this.changeable;
@@ -324,13 +362,13 @@ public class Apply extends BaseEntityBean implements Serializable {
 		this.delayToTime = delayToTime;
 	}
 	
-	public String getDepartMentID() {
-		return this.departMentID;
-	}
-
-	public void setDepartMentID(String departMentID) {
-		this.departMentID = departMentID;
-	}
+//	public String getDepartMentID() {
+//		return this.departMentID;
+//	}
+//
+//	public void setDepartMentID(String departMentID) {
+//		this.departMentID = departMentID;
+//	}
 
 	public String getDestination() {
 		return this.destination;
@@ -508,13 +546,13 @@ public class Apply extends BaseEntityBean implements Serializable {
 		this.status = status;
 	}
 
-	public int getTaskID() {
-		return this.taskID;
-	}
-
-	public void setTaskID(int taskID) {
-		this.taskID = taskID;
-	}
+//	public String getTaskTypeID() {
+//		return this.taskTypeID;
+//	}
+//
+//	public void setTaskTypeID(String taskTypeID) {
+//		this.taskTypeID = taskTypeID;
+//	}
 
 	public int getUsualAddrID() {
 		return this.usualAddrID;

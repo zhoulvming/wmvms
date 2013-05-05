@@ -12,6 +12,10 @@ public interface CommonRepository {
 	List<ComboVo> findCarCombo();
 	
 	List<ComboVo> findDriverCombo();
+	
+	List<ComboVo> findAddressCombo();
+	
+	List<ComboVo> findTaskTypeCombo();
 
 	public void save(BaseEntityBean o);
 }
