@@ -49,7 +49,8 @@ Ext
 															queryMode : 'remote',
 															typeAhead : true,
 
-														}, {
+														},
+														{
 															xtype : 'combobox',
 															fieldLabel : '',
 															itemId : 'org2',
@@ -62,7 +63,8 @@ Ext
 															queryMode : 'remote',
 															typeAhead : true,
 														} ]
-											}, {
+											},
+											{
 												xtype : 'fieldcontainer',
 												height : 24,
 												layout : {
@@ -74,7 +76,8 @@ Ext
 													xtype : 'combobox',
 													fieldLabel : ''
 												} ]
-											}, {
+											},
+											{
 												xtype : 'fieldcontainer',
 												frame : true,
 												height : 24,
@@ -92,32 +95,59 @@ Ext
 													width : 100,
 													labelWidth : 130,
 													store : ExtjsCmp
-															.createStore('../services/common/getCombo'),
+															.createStore('../services/common/findCarModelCombo'),
 													queryMode : 'remote',
 													typeAhead : true,
 												} ]
-											}, {
+											},
+											{
 												xtype : 'fieldcontainer',
 												height : 24,
 												layout : {
 													type : 'column'
 												},
 												fieldLabel : '用车人',
-												items : [ {
-													xtype : 'combobox',
-													fieldLabel : ''
-												}, {
-													xtype : 'combobox',
-													fieldLabel : ''
-												}, {
-													xtype : 'combobox',
-													width : 151,
-													fieldLabel : '指定情况',
-													labelWidth : 60
-												}, {
-													xtype : 'combobox',
-													fieldLabel : ''
-												} ]
+												items : [
+														{
+															xtype : 'combobox',
+															fieldLabel : ''
+														},
+														{
+															xtype : 'textfield',
+															fieldLabel : ''
+														},
+														{
+															xtype : 'combobox',
+															width : 151,
+															fieldLabel : '指定情况',
+															labelWidth : 60
+														},
+														{
+															xtype : 'combobox',
+															fieldLabel : '',
+															itemId : 'assignedCarID',
+															displayField : 'text',
+															valueField : 'id',
+															width : 100,
+															labelWidth : 130,
+															store : ExtjsCmp
+																	.createStore('../services/common/findCarCombo'),
+															queryMode : 'remote',
+															typeAhead : true,
+														},
+														{
+															xtype : 'combobox',
+															fieldLabel : '',
+															itemId : 'assignedDriverID',
+															displayField : 'text',
+															valueField : 'id',
+															width : 100,
+															labelWidth : 130,
+															store : ExtjsCmp
+																	.createStore('../services/common/findDriverCombo'),
+															queryMode : 'remote',
+															typeAhead : true,
+														} ]
 											} ]
 								}, {
 									xtype : 'fieldset',
@@ -234,15 +264,16 @@ Ext
 
 				// var cb = ExtjsCmp
 				// .createCombo('../services/org/getComboOrg?parent=null');
-				 _form.down('combobox[itemId=org]').addListener('select', function(combo, record, index) {
-					 _form.down('combobox[itemId=org2]').clearValue();
-						// cb3.clearValue();
-					 _form.down('combobox[itemId=org2]').store.load({
-							params : {
-								parent : this.value
-							}
+				_form.down('combobox[itemId=org]').addListener('select',
+						function(combo, record, index) {
+							_form.down('combobox[itemId=org2]').clearValue();
+							// cb3.clearValue();
+							_form.down('combobox[itemId=org2]').store.load({
+								params : {
+									parent : this.value
+								}
+							});
 						});
-					});
 
 			},
 
