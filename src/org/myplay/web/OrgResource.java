@@ -168,7 +168,7 @@ public class OrgResource {
 	@GET
 	@Path("/getComboOrg")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getComboOrg(@QueryParam("parent") String parent)
+	public String getComboOrg(@QueryParam("type") String type,@QueryParam("parent") String parent)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
 		JsonResult<ComboVo> jsonResult = new JsonResult<ComboVo>();
@@ -181,10 +181,10 @@ public class OrgResource {
 			// if(level.equals("2")){
 			if (null!=parent&&parent.equals("null")){
 				
-				list=orgService.findOrgByType();
+				list=orgService.findRootOrgByType(type);
 			}else{
 				
-				list = orgService.findOrgByType(parent);
+				list = orgService.findSubOrgByType(type, parent);
 			}
 			
 			// }

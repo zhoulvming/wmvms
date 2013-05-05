@@ -48,12 +48,12 @@ public class OrgService {
 
 	}
 
-	public List findOrgByType() {
-		return orgDao.findOrgByType();
+	public List findRootOrgByType(String type) {
+		return orgDao.findRootOrgByType(type);
 	}
 
-	public List<ComboVo> findOrgByType(String parent) {
-		return orgDao.findOrgByType(parent);
+	public List<ComboVo> findSubOrgByType(String type,String parent) {
+		return orgDao.findSubOrgByType(type,parent);
 	}
 
 	public List<Organization> findRoot(String type) {
