@@ -18,5 +18,5 @@ public interface DispatchDao extends
 	String getMaxSerialID(String param);
 
 	@Query(" select o from Apply o where o.status=?")
-	List<Apply> searchApply(String param);
+	List<Apply> searchApply(int param);
 }

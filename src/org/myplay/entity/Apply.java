@@ -94,7 +94,27 @@ public class Apply extends BaseEntityBean implements Serializable {
 		this.departmentName = departmentName;
 	}
 
+	//用车事由表关联
+    @OneToOne(optional=false,cascade={CascadeType.ALL})  
+    @JoinColumn(name="TaskTypeID")
+    private TaskType taskType;
+	public TaskType getTaskType() {
+		return taskType;
+	}
+	public void setTaskType(TaskType taskType) {
+		this.taskType = taskType;
+	}
+	
+	@Transient
 	@GridColumn(text = "用车事由", seq = 4, hidden = false,searchable=true)
+	private String taskTypeVal;
+	public String getTaskTypeVal() {
+		return taskType.getReason();
+	}
+	public void setTaskTypeVal(String taskTypeVal) {
+		this.taskTypeVal = taskTypeVal;
+	}
+
 	private int applykind;
 	
 	@GridColumn(text = "用车人", seq = 5, hidden = false,searchable=true)
@@ -103,7 +123,7 @@ public class Apply extends BaseEntityBean implements Serializable {
 	@GridColumn(text = "上车时间", seq = 6, hidden = false,searchable=true)
 	private String starttime;
 
-	private Integer status;
+	private int status;
 	
 	@Transient
 	@GridColumn(text = "状态", seq = 7, hidden = false,searchable=true)
@@ -143,7 +163,6 @@ public class Apply extends BaseEntityBean implements Serializable {
 
 	private int isLock;
 
-	//@GridColumn(text = "是否出省", seq = 8, hidden = false,searchable=true)
 	private int isOutProvince;
 	
 	@Transient
@@ -499,11 +518,11 @@ public class Apply extends BaseEntityBean implements Serializable {
 		this.starttime = starttime;
 	}
 
-	public Integer getStatus() {
+	public int getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

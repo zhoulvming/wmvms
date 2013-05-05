@@ -92,20 +92,23 @@ public class DispatchResource {
 		return mapper.writeValueAsString(jsonResult);
 	}
 	
-	@GET
+	@POST
 	@Path("/searchApply")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String searchApply(String status) throws JsonGenerationException, JsonMappingException, IOException {
+	public String searchApply(@QueryParam("status") String status) 
+			throws JsonGenerationException, JsonMappingException, IOException {
 
 		JSONArray root = new JSONArray();
 		dispatchService = this.getBean("dispatchService", DispatchService.class);
-		List<Apply> dataList = dispatchService.searchApply(status);
+		List<Apply> dataList = dispatchService.searchApply(Integer.parseInt(status));
 		for (Apply o : dataList) {
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			map.put("id", o.getId());
-//			map.put("text", o.getName());
-			root.add(o);
-
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", o.getId());
+			map.put("applyStatus", o.getApplyStatus());
+			root.add(map);
+			
+//			root.add(o);
 		}
 
 		root.toJSONObject(root);

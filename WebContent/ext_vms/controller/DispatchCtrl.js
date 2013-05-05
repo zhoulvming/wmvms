@@ -21,11 +21,11 @@ Ext.define('vms.controller.DispatchCtrl', {
         this.control({
             'viewport > dispatchlistview': {
 				beforerender: function(gp){
-					me.searchApplyList(gp, me);
+					me.searchApply(gp, me);
 				},
                 afterrender: function(gp){
                 	gp.down('button[itemId=btnSearch]').on('click',function(){
-                		me.searchApplyList(gp, me);
+                		me.searchApply(gp, me);
                 	},this);                   	
                 	gp.down('button[itemId=btnDispatch]').on('click',function(){
                 		if(me.selectedApplyID == null) {
@@ -57,7 +57,7 @@ Ext.define('vms.controller.DispatchCtrl', {
             },
             'viewport > dispatchsearchview': {
             	beforerender: function(gp) {
-                    me.searchApplyList(gp, me);
+                    me.searchApply(gp, me);
                 },
                 afterrender : function(gp) {
                 	me.addDepartment(gp.down('panel[itemId=departmentPanel]'), me);
@@ -217,7 +217,25 @@ Ext.define('vms.controller.DispatchCtrl', {
     	});
     },
 
-    searchApplyList : function(gp, me_) {
+//    searchApply : function(gp, me_) {
+//
+//    	Ext.Ajax.request({
+//            url : '../services/dispatch/searchApply?status=0',
+//            method : 'POST',
+//            headers : {"Content-Type" : "application/json; charset=utf-8"},
+//            success : function(response,opts) {
+//                var obj = Ext.decode(response.responseText);
+//                alert(obj.root);
+//            },
+//            failure : function(form,action) {
+//                Ext.Msg.alert('提示', '检索失败！');
+//                return false;
+//            }
+//        });
+//    },
+    
+    
+    searchApply : function(gp, me_) {
     	
         var selectedIndex= [];
         var selectedGridId=[];

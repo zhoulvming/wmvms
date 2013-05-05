@@ -54,7 +54,7 @@ public class DispatchService {
 	}
 
 	@Transactional(readOnly = false)
-	public List<Apply> searchApply(String status) {
+	public List<Apply> searchApply(int status) {
 		return dispatchDao.searchApply(status);
 	}
 }
