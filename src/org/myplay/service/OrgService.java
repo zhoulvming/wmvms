@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.myplay.entity.DepartmentStruc;
 import org.myplay.entity.Organization;
+import org.myplay.repository.CommonDao;
 import org.myplay.repository.OrgBindDao;
 import org.myplay.repository.OrgDao;
 import org.myplay.web.ComboVo;
@@ -24,6 +25,12 @@ public class OrgService {
 	private OrgDao orgDao;
 
 	private OrgBindDao bindDao;
+	@Autowired
+	public void setCommonDao(CommonDao commonDao) {
+		this.commonDao = commonDao;
+	}
+
+	private CommonDao commonDao;
 
 	@Autowired
 	public void setOrgDao(OrgDao orgDao) {
@@ -42,7 +49,8 @@ public class OrgService {
 	}
 
 	public List<Organization> findAll() {
-		return orgDao.findAllOrg();
+//			return orgDao.findAllOrg();
+		return commonDao.findAllOrg();
 	}
 
 	public List<Organization> findBindedOrg(String model) {
