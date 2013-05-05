@@ -1,16 +1,22 @@
 package org.myplay.service;
 
+import java.util.Date;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import org.myplay.entity.Apply;
 import org.myplay.entity.Assign;
+import org.myplay.entity.DepartmentStruc;
+import org.myplay.entity.Organization;
 import org.myplay.repository.DispatchDao;
+import org.myplay.repository.OrgBindDao;
+import org.myplay.repository.OrgDao;
+import org.myplay.web.ComboVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 @Component
 @Transactional(readOnly = true)
 public class DispatchService {
@@ -45,5 +51,10 @@ public class DispatchService {
 		
 		assign.setSerialID(newSerial);
 		dispatchDao.save(assign);
+	}
+	
+	@Transactional(readOnly = false)
+	public List<Apply> searchApply(int status) {
+		return dispatchDao.searchApply(status);
 	}
 }
